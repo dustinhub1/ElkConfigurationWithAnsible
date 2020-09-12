@@ -1,0 +1,13 @@
+---
+  - hosts: webservers
+    become: true
+    tasks:
+
+    - name: Download stress
+      apt:
+        update_cache: yes
+        name: stress
+        state: present
+
+    - name: Stress
+      command: sudo stress --cpu 1
