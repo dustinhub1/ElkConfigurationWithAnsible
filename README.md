@@ -2,13 +2,15 @@
 
 The files in this repository were used to configure the network depicted below.
 
-(Images/ConnorSandersProject1.png)
+![Image1](Images/ConnorSandersProject1.png)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select playbook files may be used to install only certain pieces of it, such as Filebeat.
 
-Ansible/install-elk.yml
-Ansible/filebeat-playbook.yml
-Ansbile/metricbeat-playbook.yml
+[install-elk.yml](Ansible/install-elk.yml)
+
+[filebeat-playbook.yml](Ansible/filebeat-playbook.yml)
+
+[metricbeat-playbook.yml](Ansbile/metricbeat-playbook.yml)
 	  
 This document contains the following details:
 - Description of the Topology
@@ -45,8 +47,8 @@ The machines on the internal network are not exposed to the public Internet.
 Only the Jump Box machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
 		Local Machine IPv4
 
-Machines within the network can only be accessed by the Ansible container on the JumpBox.
-		Ansible, 10.0.0.4. My local machine was also given access to port 5601 to view Kibana.
+Machines within the network can only be accessed by the Ansible container on the JumpBox. They have a public key generated in the Ansible docker container as their access key.
+		Ansible, 10.0.0.4. My local machine was also given access to the Elk machine's port 5601 to view Kibana.
 A summary of the access policies in place can be found in the table below.
 
 | Name     | Publicly Accessible | Allowed IP Addresses |
@@ -71,8 +73,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-(Images/docker_ps_output.png)
-
+![Image2](Images/docker_ps_output.png)
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 	10.0.0.7
@@ -90,6 +91,25 @@ In order to use the playbook, you will need to have an Ansible control node alre
 SSH into the control node and follow the steps below:
 
 - Copy the desired playbook file to /etc/ansible/roles/.
--If installing filebeat or metricbeat, `mkdir /etc/ansible/files/` and `curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/files/filebeat-config.yml` or `curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/files/metricbeat-config.yml` and update the config files to include the private IP of the Elk server as the Elastic Search and Kibana host IP.
+- If installing filebeat or metricbeat: 
+- `mkdir /etc/ansible/files/`
+- `curl https://gist.githubusercontent.com/slape/5cc350109583af6cbe577bbcc0710c93/raw/eca603b72586fbe148c11f9c87bf96a63cb25760/Filebeat > /etc/ansible/files/filebeat-config.yml` 
+- `curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/files/metricbeat-config.yml`
+- Update the config files to include the private IP of the Elk server as the Elastic Search and Kibana host IP.
 - Update the hosts file `nano /etc/ansible/hosts` to include the IPs of the machines you wish to install to. Specify them under elk and webservers respectively.
-- Run the playbook `ansible-playbook <name of playbook>` , and navigate to <IP>:5601 in the web browser to check that the installation worked as expected. If installing a beat, use the Kibana set up guide and click Check Data at the bottom to verify successful install.
+![HostImage](Images/hosts.PNG)
+- Run the playbook `ansible-playbook <name of playbook>` , and navigate to ElkMachinePublicIP:5601 in the web browser to check that the installation worked as expected. If installing a beat, use the Kibana set up guide and click Check Data at the bottom to verify successful install.
+
+Kibana accessible via the Elk server public IP.
+![Image3](Images/elkkibanacap.PNG)
+Filebeat working under Add Log Data > System Logs> Deb > Check Data
+![Image4](Images/filebeatcap.PNG)
+Viewing the Dashboard
+![Image5](Images/filebeatcap2.PNG)
+Metricbeat working under Add Metric Data > Docker Metrics > Check Data
+![Image6](Images/metriccap1.PNG)
+Metricbeat Dashboard
+![Image7](Images/metriccap2.PNG)
+Running stress command from a playbook on all servers to check CPU Usage
+[stress.yml](Ansible/stress.yml)
+![Image8](Images/stresscap.PNG)
