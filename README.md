@@ -97,7 +97,7 @@ SSH into the control node and follow the steps below:
 - `curl https://gist.githubusercontent.com/slape/58541585cc1886d2e26cd8be557ce04c/raw/0ce2c7e744c54513616966affb5e9d96f5e12f73/metricbeat > /etc/ansible/files/metricbeat-config.yml`
 - Update the config files to include the private IP of the Elk server as the Elastic Search and Kibana host IP.
 - Update the hosts file `nano /etc/ansible/hosts` to include the IPs of the machines you wish to install to. Specify them under elk and webservers respectively.
-![HostImage](Images/hosts.PNG)
+- ![HostImage](Images/hosts.PNG)
 - Run the playbook `ansible-playbook <name of playbook>` , and navigate to ElkMachinePublicIP:5601 in the web browser to check that the installation worked as expected. If installing a beat, use the Kibana set up guide and click Check Data at the bottom to verify successful install.
 
 Kibana accessible via the Elk server public IP.
