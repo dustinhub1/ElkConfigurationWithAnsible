@@ -34,7 +34,7 @@ The configuration details of each machine may be found below.
 
 | Name     | Function  | IP Address | Operating System |
 |----------|-----------|------------|------------------|
-| Jump Box | Gateway   | 10.0.0.1   | Linux            |
+| Jump Box | Gateway   | 10.0.0.4   | Linux            |
 | Web-1    | WebServer | 10.0.0.7   | Linux            |
 | Web-2    | WebServer | 10.0.0.8   | Linux            |
 | Web-3    | WebServer | 10.0.0.9   | Linux            |
